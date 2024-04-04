@@ -6,7 +6,7 @@
 /*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:41:35 by isb3              #+#    #+#             */
-/*   Updated: 2024/04/02 11:21:37 by adesille         ###   ########.fr       */
+/*   Updated: 2024/04/04 14:31:46 by adesille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,24 +60,33 @@ char	***parse_cmds(char *argv[])
 {
 	char	***args;
 	char	**cmds;
-	char	*cmd1;
-	char	*cmd2;
+	char	*cmd;
+	int		i;
+	int		k;
 
-	cmds = malloc(3 * sizeof(char *));
+	i = 0;
+	while (argv[i])
+		i++;
+	cmds = malloc((i - 2) * sizeof(char *));
 	if (!cmds)
 		return (NULL);
-	cmd1 = ft_strjoin(argv[2], " ");
-	cmds[0] = ft_substr(cmd1, 0, ft_strlen(cmd1));
-	cmd2 = ft_strjoin(argv[3], " ");
-	cmds[1] = ft_substr(cmd2, 0, ft_strlen(cmd2));
-	cmds[2] = NULL;
-	args = malloc(3 * sizeof(char **));
+	args = malloc((i - 2) * sizeof(char **));
 	if (!args)
-		return (free(cmd1), free(cmd2), free_memory(cmds), NULL);
-	args[0] = ft_split(cmds[0], ' ');
-	args[1] = ft_split(cmds[1], ' ');
-	args[2] = NULL;
-	return (free(cmd1), free(cmd2), free_memory(cmds), args);
+		return (free(cmds), NULL);
+	cmds[i - 3] = NULL;
+	args[i - 3] = NULL;
+	k = 0;
+	i = 2;
+	while (argv[i + 1])
+	{
+		cmd = ft_strjoin(argv[i++], " ");
+		cmds[k++] = ft_substr(cmd, 0, ft_strlen(cmd));
+		free(cmd);
+	}
+	i = -1;
+	while (cmds[++i])
+		args[i] = ft_split(cmds[i], ' ');
+	return (free_memory(cmds), args);
 }
 
 char	**parse_files(char *argv[])

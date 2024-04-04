@@ -6,7 +6,7 @@
 /*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 11:23:30 by isb3              #+#    #+#             */
-/*   Updated: 2024/04/02 13:52:27 by adesille         ###   ########.fr       */
+/*   Updated: 2024/04/04 14:37:45 by adesille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,16 +96,13 @@ int	main(int argc, char *argv[], char *env[])
 		d->cmd_paths = get_cmd_path(argv, env);
 		if (!d->cmd_paths)
 			return (free(d), printf("ERROR\n"), 127);
-		int i = 0;
-		while (d->cmd_paths[i])
-			printf("cmd_paths = %s\n", d->cmd_paths[i++]);
-		// d->args = parse_cmds(argv);
-		// if (!d->args)
-		// 	return (ff(d, 0, "args_parsing\n"), 1);
-		// d->files = parse_files(argv);
-		// if (!d->files)
-		// 	return (ff(d, 0, "files parsing"), 1);
-		// return (warlord_executor(d, env));
+		d->args = parse_cmds(argv);
+		if (!d->args)
+			return (ff(d, 0, "args_parsing\n"), 1);
+		d->files = parse_files(argv);
+		if (!d->files)
+			return (ff(d, 0, "files parsing"), 1);
+		return (warlord_executor(d, env));
 	}
 	return (0);
 }
