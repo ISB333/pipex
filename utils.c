@@ -6,7 +6,7 @@
 /*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:41:35 by isb3              #+#    #+#             */
-/*   Updated: 2024/04/04 14:31:46 by adesille         ###   ########.fr       */
+/*   Updated: 2024/04/05 09:45:02 by adesille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,16 @@ char	***parse_cmds(char *argv[])
 char	**parse_files(char *argv[])
 {
 	char	**files;
+	int		i;
 
+	i = 1;
 	files = malloc(3 * sizeof(char *));
 	if (!files)
 		return (NULL);
 	files[0] = ft_substr(argv[1], 0, ft_strlen(argv[1]));
-	files[1] = ft_substr(argv[4], 0, ft_strlen(argv[4]));
+	while (argv[i])
+		i++;
+	files[1] = ft_substr(argv[i - 1], 0, ft_strlen(argv[i - 1]));
 	files[2] = NULL;
 	return (files);
 }

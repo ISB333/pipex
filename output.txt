@@ -1,1 +1,12 @@
-12
+total 1604
+drwxr-xr-x 2 test 2023_mulhouse      52 avril  5 09:45 0_obj
+-rw-r--r-- 1 test 2023_mulhouse 1585760 avril  2 13:20 fr.subject.pdf
+drwxr-xr-x 4 test 2023_mulhouse    4096 avril  5 09:45 libft
+-rw-r--r-- 1 test 2023_mulhouse    1913 avril  2 13:20 Makefile
+-rw-r--r-- 1 test 2023_mulhouse       0 avril  5 13:48 output.txt
+-rwxr-xr-x 1 test 2023_mulhouse   27048 avril  5 09:45 pipex
+-rw-r--r-- 1 test 2023_mulhouse    3620 avril  5 13:41 pipex.c
+-rw-r--r-- 1 test 2023_mulhouse    1745 avril  2 13:25 pipex.h
+drwxr-xr-x 2 test 2023_mulhouse      23 avril  2 13:20 test
+-rw-r--r-- 1 test 2023_mulhouse    2696 avril  4 14:31 utils2.c
+-rw-r--r-- 1 test 2023_mulhouse    2455 avril  5 09:45 utils.c
