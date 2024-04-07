@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isb3 <isb3@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 11:23:30 by isb3              #+#    #+#             */
-/*   Updated: 2024/04/06 11:27:11 by adesille         ###   ########.fr       */
+/*   Updated: 2024/04/07 10:37:02 by isb3             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,88 +133,130 @@
 // ============================================================
 // ============================================================
 
-int	exec(int fd[], t_data *d, char *env[])
+// int	exec(int fd[], t_data *d, char *env[])
+// {
+// 	int	file;
+
+// 	close(fd[0]);
+
+// 	if(d->it == 0)
+// 		dup2(d->infile, STDIN_FILENO);
+// 	else
+// 		dup2(d->outfile, STDIN_FILENO);
+// 	dup2(fd[1], STDOUT_FILENO);
+// 	close(fd[1]);
+// 	if (execve(d->cmd_paths[d->it], d->args[d->it++], env))
+// 		return (ff(d, errno, d->args[0][0]), close(file), errno);
+// 	return (0);
+// }
+
+// int	parent(int fd[], t_data *d, char *env[], pid_t pid)
+// {
+// 	int	file;
+// 	int	status;
+
+// 	close(fd[1]);
+// 	waitpid(d->child[d->it], &status, 0);
+// 	if (WIFEXITED(status))
+// 	{
+// 		if (WEXITSTATUS(status) != EXIT_SUCCESS)
+// 			return (ff(d, 0, NULL), close(fd[0]),  errno);
+// 		if(d->count--)
+// 		{
+// 			dup2(fd[0], STDIN_FILENO);
+// 			dup2(d->outfile, STDOUT_FILENO);
+// 			close(d->outfile);
+// 			close(fd[0]);
+// 			d->child[++d->it] = fork();
+// 			if(d->child[d->it] == -1)
+// 				return(0);
+// 			if(d->child[d->it] == 0)
+// 				exec(fd, d, env);
+// 			else
+// 				parent(fd, d, env, d->child[d->it]);
+// 			// if (execve(d->cmd_paths[1], d->args[1], env))
+// 			// 	return (ff(d, errno, d->args[1][0]), errno);
+// 		}
+// 		else
+// 		{
+// 			dup2(fd[0], STDIN_FILENO);
+// 			dup2(d->outfile, STDOUT_FILENO);
+// 			close(d->outfile);
+// 			close(fd[0]);
+// 			if (execve(d->cmd_paths[d->it], d->args[d->it], env))
+// 				return (ff(d, errno, d->args[1][0]), errno);
+// 		}
+// 	}
+// 	else
+// 		return (write(2, strerror(errno), ft_strlen(strerror(errno))), errno);
+// 	return (0);
+// }
+
+
+// void	child(t_data *d)
+// {
+// 	close(d->fd[0]);
+// 	dup2(d->fd[1], STDOUT_FILENO);
+// 	close(d->fd[1]);
+// }
+
+// void	parent(t_data *d)
+// {
+// 	close(d->fd[1]);
+// 	if (d->it == 0)
+// 		dup2(d->infile, STDIN_FILENO);
+// 	else
+// 		dup2(d->fd[0], STDIN_FILENO);
+// 	if (d->it == d->count - 1)
+// 		dup2(d->outfile, STDOUT_FILENO);
+
+// }
+
+void	child(t_data *d)
 {
-	int	file;
-
-	close(fd[0]);
-
-	if(d->it == 0)
+	close(d->fd[0]);
+	if (d->it == 0)
 		dup2(d->infile, STDIN_FILENO);
 	else
-		dup2(d->outfile, STDIN_FILENO);
-	dup2(fd[1], STDOUT_FILENO);
-	close(fd[1]);
-	if (execve(d->cmd_paths[d->it], d->args[d->it++], env))
-		return (ff(d, errno, d->args[0][0]), close(file), errno);
-	return (0);
+		dup2(d->fd[0], STDIN_FILENO);
+	if (d->it == d->count - 1)
+		dup2(d->outfile, STDOUT_FILENO);
+	else
+		dup2(d->fd[1], STDOUT_FILENO);
+	close(d->fd[1]);
 }
 
-int	parent(int fd[], t_data *d, char *env[], pid_t pid)
+void	parent(t_data *d)
 {
-	int	file;
-	int	status;
-
-	close(fd[1]);
-	waitpid(d->child[d->it], &status, 0);
-	if (WIFEXITED(status))
-	{
-		if (WEXITSTATUS(status) != EXIT_SUCCESS)
-			return (ff(d, 0, NULL), close(fd[0]),  errno);
-		if(d->count--)
-		{
-			dup2(fd[0], STDIN_FILENO);
-			dup2(d->outfile, STDOUT_FILENO);
-			close(d->outfile);
-			close(fd[0]);
-			d->child[++d->it] = fork();
-			if(d->child[d->it] == -1)
-				return(0);
-			if(d->child[d->it] == 0)
-				exec(fd, d, env);
-			else
-				parent(fd, d, env, d->child[d->it]);
-			// if (execve(d->cmd_paths[1], d->args[1], env))
-			// 	return (ff(d, errno, d->args[1][0]), errno);
-		}
-		else
-		{
-			dup2(fd[0], STDIN_FILENO);
-			dup2(d->outfile, STDOUT_FILENO);
-			close(d->outfile);
-			close(fd[0]);
-			if (execve(d->cmd_paths[d->it], d->args[d->it], env))
-				return (ff(d, errno, d->args[1][0]), errno);
-		}
-	}
-	else
-		return (write(2, strerror(errno), ft_strlen(strerror(errno))), errno);
-	return (0);
+	close(d->fd[1]);
+	dup2(d->fd[0], STDIN_FILENO);
+	dup2(d->fd[1], STDOUT_FILENO);
+	close(d->fd[0]);
 }
 
 int	warlord_executor(t_data *d, char *env[])
 {
-	int		file;
-	int		fd[2];
+	int	status;
+	pid_t pid;
 
-	if (pipe(fd) == -1)
+	d->it++;
+	if (pipe(d->fd) == -1)
 		return (write(2, strerror(errno), ft_strlen(strerror(errno))), errno);
-	d->child[d->it] = fork();
-	if (d->child[d->it] == -1)
+	pid = fork();
+	if (pid == -1)
 		return (ff(d, errno, NULL), errno);
-	d->infile = open(d->files[0], O_RDONLY);
-	if (d->infile == -1)
-		return(0);
-	d->outfile = open(d->files[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (d->outfile == -1)
-		return(0);
-	if (d->child[0] == 0)
+	if (pid == 0)
 	{
-		exec(fd, d, env);
+		child(d);
+		execve(d->cmd_paths[d->it], d->args[d->it], env);
+		// exec(d, env);
 	}
-	else
+	else if (pid > 0)
 	{
-		parent(fd, d, env, d->child[d->it]);
+		waitpid(pid, &status, 0);
+		parent(d);
+		if (d->it < d->count)
+			warlord_executor(d, env);
 	}
 	return (0);
 }
@@ -249,8 +291,15 @@ int	main(int argc, char *argv[], char *env[])
 		int i = 0;
 		while(d->args[i])
 			i++;
-		d->count = i - 1;
-		d->it = 0;
+		d->count = i;
+		d->it = -1;
+
+		d->infile = open(d->files[0], O_RDONLY);
+		if (d->infile == -1)
+			return(0);
+		d->outfile = open(d->files[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (d->outfile == -1)
+			return(0);
 		return (warlord_executor(d, env));
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isb3 <isb3@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 15:26:28 by adesille          #+#    #+#             */
-/*   Updated: 2024/04/06 10:50:39 by adesille         ###   ########.fr       */
+/*   Updated: 2024/04/07 09:22:13 by isb3             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_data
 	int		fd[2];
 	int		infile;
 	int		outfile;
-	pid_t	child[100];
+	pid_t	pid;
 }	t_data;
 
 int		format_check(char *argv[]);
