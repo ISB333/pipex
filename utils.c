@@ -6,7 +6,7 @@
 /*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:41:35 by isb3              #+#    #+#             */
-/*   Updated: 2024/04/08 11:58:44 by adesille         ###   ########.fr       */
+/*   Updated: 2024/04/08 12:48:18 by adesille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ int	ff(t_data *d, int err, char *msg)
 		close(d->infile);
 	if (d->outfile)
 		close(d->outfile);
-	// if (d->temp)
-	// 	close(d->temp);
 	if (d->args)
 	{
 		while (d->args[i])

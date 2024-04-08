@@ -6,7 +6,7 @@
 /*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 11:23:30 by isb3              #+#    #+#             */
-/*   Updated: 2024/04/08 12:44:45 by adesille         ###   ########.fr       */
+/*   Updated: 2024/04/08 12:54:36 by adesille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,20 @@ void	child(t_data *d)
 	if (d->it == d->count - 1)
 	{
 		dup2(d->outfile, STDOUT_FILENO);
-		close(d->fd[1]);
+		// close(d->fd[1]);
 	}
 	else
 		dup2(d->fd[1], STDOUT_FILENO);
+	// close(d->infile);
+	// close(d->outfile);
+	// close(d->fd[1]);
 }
 
 void	parent(t_data *d)
 {
 	close(d->fd[1]);
-	close(d->fd[0]);
 	dup2(d->fd[0], STDIN_FILENO);
+	close(d->fd[0]);
 }
 
 int	warlord_executor(t_data *d, char *env[])
@@ -62,6 +65,9 @@ int	warlord_executor(t_data *d, char *env[])
 
 int	initializer(t_data *d, char	*argv[], char *env[])
 {
+	int	i;
+	
+	i = 0;
 	d->infile = 0;
 	d->outfile = 0;
 	d->cmd_paths = get_cmd_path(argv, env);
@@ -72,7 +78,6 @@ int	initializer(t_data *d, char	*argv[], char *env[])
 		return (ff(d, 0, "args_parsing\n"), 1);
 	if (parse_files(argv, d))
 		return (ff(d, 0, "files parsing"), 1);
-	int i = 0;
 	while (d->args[i])
 		i++;
 	d->count = i;
