@@ -6,7 +6,7 @@
 /*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 11:23:30 by isb3              #+#    #+#             */
-/*   Updated: 2024/04/08 12:15:11 by adesille         ###   ########.fr       */
+/*   Updated: 2024/04/08 12:44:45 by adesille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	child(t_data *d)
 void	parent(t_data *d)
 {
 	close(d->fd[1]);
-	dup2(d->fd[0], STDIN_FILENO);
 	close(d->fd[0]);
+	dup2(d->fd[0], STDIN_FILENO);
 }
 
 int	warlord_executor(t_data *d, char *env[])
