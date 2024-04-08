@@ -1,16 +1,13 @@
-total 1700
-drwxr-xr-x 6 isb3 isb3    4096 March  7 10:37 .
-drwxr-xr-x 5 isb3 isb3    4096 March  7 09:18 ..
-drwxr-xr-x 8 isb3 isb3    4096 March  6 19:15 .git
--rw-r--r-- 1 isb3 isb3      31 March  6 19:15 .gitignore
-drwxr-xr-x 2 isb3 isb3    4096 March  7 10:37 0_obj
--rw-r--r-- 1 isb3 isb3    1913 March  6 19:15 Makefile
--rw-r--r-- 1 isb3 isb3 1585760 March  6 19:15 fr.subject.pdf
-drwxr-xr-x 4 isb3 isb3    4096 March  7 10:37 libft
--rw-r--r-- 1 isb3 isb3       0 March  7 10:37 output.txt
--rwxr-xr-x 1 isb3 isb3   97576 March  7 10:37 pipex
--rw-r--r-- 1 isb3 isb3    7905 March  7 10:37 pipex.c
--rw-r--r-- 1 isb3 isb3    1822 March  7 09:22 pipex.h
-drwxr-xr-x 2 isb3 isb3    4096 March  6 19:15 test
--rw-r--r-- 1 isb3 isb3    2455 March  6 19:15 utils.c
--rw-r--r-- 1 isb3 isb3    2696 March  6 19:15 utils2.c
+total 1604
+drwxr-xr-x 2 ISB 2023_mulhouse      52 avril  8 12:25 0_obj
+-rw-r--r-- 1 ISB 2023_mulhouse       0 avril  8 10:13 cat
+-rw-r--r-- 1 ISB 2023_mulhouse 1585760 avril  2 13:20 fr.subject.pdf
+drwxr-xr-x 4 ISB 2023_mulhouse    4096 avril  8 12:25 libft
+-rw-r--r-- 1 ISB 2023_mulhouse    1913 avril  2 13:20 Makefile
+-rw-r--r-- 1 ISB 2023_mulhouse       0 avril  8 12:25 output.txt
+-rwxr-xr-x 1 ISB 2023_mulhouse   27408 avril  8 12:25 pipex
+-rw-r--r-- 1 ISB 2023_mulhouse    2658 avril  8 12:15 pipex.c
+-rw-r--r-- 1 ISB 2023_mulhouse    1816 avril  8 11:30 pipex.h
+drwxr-xr-x 2 ISB 2023_mulhouse      23 avril  2 13:20 test
+-rw-r--r-- 1 ISB 2023_mulhouse    2826 avril  8 10:30 utils2.c
+-rw-r--r-- 1 ISB 2023_mulhouse    2742 avril  8 11:58 utils.c

@@ -6,7 +6,7 @@
 /*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 09:44:32 by adesille          #+#    #+#             */
-/*   Updated: 2024/04/04 14:31:53 by adesille         ###   ########.fr       */
+/*   Updated: 2024/04/08 10:30:32 by adesille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@ char	**extract_path(char *env[])
 	if (!env[i])
 		return (NULL);
 	trimm_path = ft_strtrim(env[i], "PATH=/");
+	if (!trimm_path)
+		return (NULL);
 	path = ft_split(trimm_path, ':');
+	if (!path)
+		return (free(trimm_path), NULL);
 	return (free(trimm_path), path);
 }
 
@@ -40,7 +44,11 @@ char	*path_finder(char *cmd, char *env[])
 		return (NULL);
 	i = -1;
 	full_cmd = ft_split(cmd, ' ');
+	if (!full_cmd)
+		return (free_memory(path), NULL);
 	cmd = ft_strjoin("/", full_cmd[0]);
+	if (!cmd)
+		return (free(full_cmd), free_memory(path), NULL);
 	free_memory(full_cmd);
 	while (path[++i])
 	{
@@ -85,8 +93,6 @@ void	printer(t_data *d)
 		printf("%s\n", d->cmd_paths[k]);
 	k = -1;
 	printf("\n=== file ===\n");
-	while (d->files[++k])
-		printf("file %d = %s\n", k, d->files[k]);
 	int i = -1;
 	k = 0;
 	printf("\n=== args_split 1 ===\n");
