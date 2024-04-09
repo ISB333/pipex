@@ -6,29 +6,42 @@
 /*   By: isb3 <isb3@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 11:23:30 by isb3              #+#    #+#             */
-/*   Updated: 2024/04/09 10:39:22 by isb3             ###   ########.fr       */
+/*   Updated: 2024/04/09 11:13:08 by isb3             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	child(t_data *d)
+int	child(t_data *d)
 {
-	close(d->pipe_fd[0]);
+	if (close(d->pipe_fd[0]) == -1)
+		return (close(d->pipe_fd[1]), -1);
 	if (d->it == 0)
-		dup2(d->infile, STDIN_FILENO);
+	{
+		if (dup2(d->infile, STDIN_FILENO) == -1)
+			return (-1);
+	}
 	if (d->it == d->count - 1)
-		dup2(d->outfile, STDOUT_FILENO);
+	{
+		if (dup2(d->outfile, STDOUT_FILENO) == -1)
+			return (-1);
+	}
 	else
-		dup2(d->pipe_fd[1], STDOUT_FILENO);
+		if (dup2(d->pipe_fd[1], STDOUT_FILENO) == -1)
+			return (-1);
+	return (0);
 }
 
-void	parent(t_data *d)
-{
-	close(d->pipe_fd[1]);
-	dup2(d->pipe_fd[0], STDIN_FILENO);
-	close(d->pipe_fd[0]);
-}
+// int	parent(t_data *d)
+// {
+// 	if (close(d->pipe_fd[1]) == -1 || dup2(d->pipe_fd[0], STDIN_FILENO) == -1 || close(d->pipe_fd[0]) == -1)
+// 		return (-1);
+// 	if (dup2(d->pipe_fd[0], STDIN_FILENO) == -1)
+// 		return (close(d->pipe_fd[0]), -1);
+// 	if (close(d->pipe_fd[0]) == -1)
+// 		return (-1);
+// 	return (0);
+// }
 
 int	warlord_executor(t_data *d, char *env[])
 {
@@ -43,13 +56,17 @@ int	warlord_executor(t_data *d, char *env[])
 		return (ff(d, errno, NULL), errno);
 	if (pid == 0)
 	{
-		child(d);
+		if (child(d) == -1)
+			return (ff(d, 0, NULL), errno);
 		execve(d->cmd_paths[d->it], d->args[d->it], env);
 	}
 	else if (pid > 0)
 	{
 		waitpid(pid, &status, 0);
-		parent(d);
+		if (close(d->pipe_fd[1]) == -1 || dup2(d->pipe_fd[0], STDIN_FILENO) == -1
+			|| close(d->pipe_fd[0]) == -1)
+			return (-1);
+		// parent(d);
 		if (d->it < d->count - 1)
 			warlord_executor(d, env);
 	}
@@ -72,7 +89,7 @@ int	main(int argc, char *argv[], char *env[])
 		if (!d)
 			return (ft_putstr_fd("malloc\n", 1), 1);
 		if (initializer(d, argv, env))
-			return (-1);
+			return (errno);
 		if (warlord_executor(d, env))
 			return (ff(d, errno, NULL), errno);
 		return (ff(d, 0, NULL), 0);

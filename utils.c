@@ -6,7 +6,7 @@
 /*   By: isb3 <isb3@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:41:35 by isb3              #+#    #+#             */
-/*   Updated: 2024/04/09 10:34:41 by isb3             ###   ########.fr       */
+/*   Updated: 2024/04/09 11:12:44 by isb3             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,13 @@ int	parse_files(char *argv[], t_data *d)
 		i++;
 	file2 = ft_substr(argv[i - 1], 0, ft_strlen(argv[i - 1]));
 	if (!file2)
-		return (-1);
+		return (free(file1), -1);
 	d->infile = open(file1, O_RDONLY);
 	if (d->infile == -1)
-		return (-1);
+		return (free(file1), free(file2), -1);
 	d->outfile = open(file2, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (d->outfile == -1)
-		return (-1);
+		return (free(file1), free(file2), -1);
 	return (free(file1), free(file2), 0);
 }
 
@@ -112,12 +112,12 @@ int	initializer(t_data *d, char	*argv[], char *env[])
 	d->outfile = 0;
 	d->cmd_paths = get_cmd_path(argv, env);
 	if (!d->cmd_paths)
-		return (free(d), printf("ERROR\n"), 127);
+		return (free(d), 127);
 	d->args = parse_cmds(argv, NULL, 0, 0);
 	if (!d->args)
-		return (ff(d, 0, "args_parsing\n"), 1);
+		return (ff(d, 0, "args_parsing\n"), -1);
 	if (parse_files(argv, d))
-		return (ff(d, 0, "files parsing"), 1);
+		return (ff(d, 0, "files parsing\n"), -1);
 	while (d->args[i])
 		i++;
 	d->it = -1;

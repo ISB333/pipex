@@ -6,7 +6,7 @@
 /*   By: isb3 <isb3@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 09:44:32 by adesille          #+#    #+#             */
-/*   Updated: 2024/04/09 10:36:17 by isb3             ###   ########.fr       */
+/*   Updated: 2024/04/09 11:11:54 by isb3             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ char	**get_cmd_path(char *argv[], char *env[])
 	{
 		cmd_paths[k] = path_finder(argv[i++], env);
 		if (!cmd_paths[k++])
-			return (free(cmd_paths), ft_putstr_fd("command not found : ", 1), \
-				ft_putstr_fd(argv[i], 1), NULL);
+			return (free_memory(cmd_paths), ft_putstr_fd("command not found : ", 1), \
+				ft_putstr_fd(argv[i - 1], 1), write(1, "\n", 1), NULL);
 	}
 	return (cmd_paths);
 }
@@ -96,28 +96,4 @@ int	format_check(char *argv[])
 			return (-1);
 	}
 	return (0);
-}
-
-void	printer(t_data *d)
-{
-	int	k;
-
-	k = -1;
-	printf("\n=== cmds_paths ===\n");
-	while (d->cmd_paths[++k])
-		printf("%s\n", d->cmd_paths[k]);
-	k = -1;
-	printf("\n=== file ===\n");
-	int i = -1;
-	k = 0;
-	printf("\n=== args_split 1 ===\n");
-	while(d->args[++i])
-	{
-		k = 0;
-		while(d->args[i][k])
-			printf("%s\n", d->args[i][k++]);
-		if (i == 0)
-			printf("\n=== args_split 2 ===\n");
-	}
-	printf("\n--------------------------------------------------------------\n");
 }
