@@ -6,7 +6,7 @@
 /*   By: isb3 <isb3@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 11:23:30 by isb3              #+#    #+#             */
-/*   Updated: 2024/04/09 10:30:58 by isb3             ###   ########.fr       */
+/*   Updated: 2024/04/09 10:39:22 by isb3             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int	main(int argc, char *argv[], char *env[])
 		d = malloc(sizeof(t_data));
 		if (!d)
 			return (ft_putstr_fd("malloc\n", 1), 1);
-		initializer(d, argv, env);
+		if (initializer(d, argv, env))
+			return (-1);
 		if (warlord_executor(d, env))
 			return (ff(d, errno, NULL), errno);
 		return (ff(d, 0, NULL), 0);
