@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isb3 <isb3@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:41:35 by isb3              #+#    #+#             */
-/*   Updated: 2024/04/08 12:48:18 by adesille         ###   ########.fr       */
+/*   Updated: 2024/04/09 10:34:41 by isb3             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-int	format_check(char *argv[])
-{
-	int	i;
-
-	i = 0;
-	while (argv[++i] && i <= 4)
-	{
-		if (argv[i][0] == '-')
-			return (-1);
-	}
-	return (0);
-}
 
 void	free_memory(char **array)
 {
@@ -64,15 +51,11 @@ int	ff(t_data *d, int err, char *msg)
 	return (errno);
 }
 
-char	***parse_cmds(char *argv[])
+char	***parse_cmds(char *argv[], char *cmd, int i, int k)
 {
 	char	***args;
 	char	**cmds;
-	char	*cmd;
-	int		i;
-	int		k;
 
-	i = 0;
 	while (argv[i])
 		i++;
 	cmds = malloc((i - 2) * sizeof(char *));
@@ -83,7 +66,6 @@ char	***parse_cmds(char *argv[])
 		return (free(cmds), NULL);
 	cmds[i - 3] = NULL;
 	args[i - 3] = NULL;
-	k = 0;
 	i = 2;
 	while (argv[i + 1])
 	{
@@ -99,7 +81,6 @@ char	***parse_cmds(char *argv[])
 
 int	parse_files(char *argv[], t_data *d)
 {
-	char	**files;
 	char	*file1;
 	char	*file2;
 	int		i;
@@ -120,4 +101,27 @@ int	parse_files(char *argv[], t_data *d)
 	if (d->outfile == -1)
 		return (-1);
 	return (free(file1), free(file2), 0);
+}
+
+int	initializer(t_data *d, char	*argv[], char *env[])
+{
+	int	i;
+
+	i = 0;
+	d->infile = 0;
+	d->outfile = 0;
+	d->cmd_paths = get_cmd_path(argv, env);
+	if (!d->cmd_paths)
+		return (free(d), printf("ERROR\n"), 127);
+	d->args = parse_cmds(argv, NULL, 0, 0);
+	if (!d->args)
+		return (ff(d, 0, "args_parsing\n"), 1);
+	if (parse_files(argv, d))
+		return (ff(d, 0, "files parsing"), 1);
+	while (d->args[i])
+		i++;
+	d->it = -1;
+	d->count = i;
+	d->temp = -1;
+	return (0);
 }

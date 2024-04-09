@@ -1,0 +1,18 @@
+total 1704
+drwxr-xr-x 6 isb3 isb3    4096 Apr  9 10:36 .
+drwxr-xr-x 4 isb3 isb3    4096 Apr  9 09:06 ..
+drwxr-xr-x 8 isb3 isb3    4096 Apr  9 09:08 .git
+-rw-r--r-- 1 isb3 isb3      31 Apr  6 19:15 .gitignore
+drwxr-xr-x 2 isb3 isb3    4096 Apr  9 10:36 0_obj
+-rw-r--r-- 1 isb3 isb3    1935 Apr  9 10:12 Makefile
+-rw-r--r-- 1 isb3 isb3       0 Apr  9 09:08 cat
+-rw-r--r-- 1 isb3 isb3 1585760 Apr  6 19:15 fr.subject.pdf
+drwxr-xr-x 4 isb3 isb3    4096 Apr  9 10:36 libft
+-rw-r--r-- 1 isb3 isb3       0 Apr  9 10:36 output.txt
+-rwxr-xr-x 1 isb3 isb3   97544 Apr  9 10:36 pipex
+-rw-r--r-- 1 isb3 isb3    2203 Apr  9 10:30 pipex.c
+-rw-r--r-- 1 isb3 isb3    1917 Apr  9 10:35 pipex.h
+drwxr-xr-x 2 isb3 isb3    4096 Apr  6 19:15 test
+-rw-r--r-- 1 isb3 isb3    5676 Apr  9 09:44 trace.txt
+-rw-r--r-- 1 isb3 isb3    2989 Apr  9 10:34 utils.c
+-rw-r--r-- 1 isb3 isb3    2972 Apr  9 10:36 utils2.c

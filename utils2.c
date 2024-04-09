@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isb3 <isb3@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 09:44:32 by adesille          #+#    #+#             */
-/*   Updated: 2024/04/08 10:30:32 by adesille         ###   ########.fr       */
+/*   Updated: 2024/04/09 10:36:17 by isb3             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,30 @@ char	**get_cmd_path(char *argv[], char *env[])
 	{
 		cmd_paths[k] = path_finder(argv[i++], env);
 		if (!cmd_paths[k++])
-			return (free(cmd_paths), ft_putstr_fd("command not found : ", 1), ft_putstr_fd(argv[i], 1), NULL);
+			return (free(cmd_paths), ft_putstr_fd("command not found : ", 1), \
+				ft_putstr_fd(argv[i], 1), NULL);
 	}
 	return (cmd_paths);
 }
 
+int	format_check(char *argv[])
+{
+	int	i;
+
+	i = 0;
+	while (argv[++i + 1])
+	{
+		if (argv[i][0] == '-')
+			return (-1);
+	}
+	return (0);
+}
+
 void	printer(t_data *d)
 {
-	int	k = -1;
+	int	k;
 
+	k = -1;
 	printf("\n=== cmds_paths ===\n");
 	while (d->cmd_paths[++k])
 		printf("%s\n", d->cmd_paths[k]);

@@ -13,7 +13,7 @@
 ######################## ARGUMENTS ########################
 
 NAME = pipex
-CFLAGS += -g3
+CFLAGS += -Wall -Wextra -Werror -g3
 CC = cc
 
 ######################## SOURCES ########################

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isb3 <isb3@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 11:23:30 by isb3              #+#    #+#             */
-/*   Updated: 2024/04/08 12:54:36 by adesille         ###   ########.fr       */
+/*   Updated: 2024/04/09 10:30:58 by isb3             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,29 @@
 
 void	child(t_data *d)
 {
-	close(d->fd[0]);
+	close(d->pipe_fd[0]);
 	if (d->it == 0)
 		dup2(d->infile, STDIN_FILENO);
 	if (d->it == d->count - 1)
-	{
 		dup2(d->outfile, STDOUT_FILENO);
-		// close(d->fd[1]);
-	}
 	else
-		dup2(d->fd[1], STDOUT_FILENO);
-	// close(d->infile);
-	// close(d->outfile);
-	// close(d->fd[1]);
+		dup2(d->pipe_fd[1], STDOUT_FILENO);
 }
 
 void	parent(t_data *d)
 {
-	close(d->fd[1]);
-	dup2(d->fd[0], STDIN_FILENO);
-	close(d->fd[0]);
+	close(d->pipe_fd[1]);
+	dup2(d->pipe_fd[0], STDIN_FILENO);
+	close(d->pipe_fd[0]);
 }
 
 int	warlord_executor(t_data *d, char *env[])
 {
-	int	status;
-	pid_t pid;
+	int		status;
+	pid_t	pid;
 
 	d->it++;
-	if (pipe(d->fd) == -1)
+	if (pipe(d->pipe_fd) == -1)
 		return (write(2, strerror(errno), ft_strlen(strerror(errno))), errno);
 	pid = fork();
 	if (pid == -1)
@@ -62,36 +56,11 @@ int	warlord_executor(t_data *d, char *env[])
 	return (0);
 }
 
-
-int	initializer(t_data *d, char	*argv[], char *env[])
-{
-	int	i;
-	
-	i = 0;
-	d->infile = 0;
-	d->outfile = 0;
-	d->cmd_paths = get_cmd_path(argv, env);
-	if (!d->cmd_paths)
-		return (free(d), printf("ERROR\n"), 127);
-	d->args = parse_cmds(argv);
-	if (!d->args)
-		return (ff(d, 0, "args_parsing\n"), 1);
-	if (parse_files(argv, d))
-		return (ff(d, 0, "files parsing"), 1);
-	while (d->args[i])
-		i++;
-	d->count = i;
-	d->it = -1;
-	d->temp = -1;
-	return (0);
-}
-
 ///-> Add path basique to env[] and test execve with path instead of env
 
 int	main(int argc, char *argv[], char *env[])
 {
 	t_data	*d;
-	int		status;
 
 	if (argc <= 4)
 		return (printf("argc ERROR\n"), 1);
