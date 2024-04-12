@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isb3 <isb3@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 09:44:32 by adesille          #+#    #+#             */
-/*   Updated: 2024/04/09 11:11:54 by isb3             ###   ########.fr       */
+/*   Updated: 2024/04/12 14:17:40 by adesille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*path_finder(char *cmd, char *env[])
 			return (free(cmd), free_memory(path), test_path);
 		free(test_path);
 	}
-	return (free(cmd), free_memory(path), NULL);
+	return (free(cmd), free_memory(path), ft_substr("lol", 0, 3));
 }
 
 char	**get_cmd_path(char *argv[], char *env[])
@@ -79,7 +79,8 @@ char	**get_cmd_path(char *argv[], char *env[])
 	{
 		cmd_paths[k] = path_finder(argv[i++], env);
 		if (!cmd_paths[k++])
-			return (free_memory(cmd_paths), ft_putstr_fd("command not found : ", 1), \
+			return (free_memory(cmd_paths), \
+				ft_putstr_fd("command not found : ", 1), \
 				ft_putstr_fd(argv[i - 1], 1), write(1, "\n", 1), NULL);
 	}
 	return (cmd_paths);

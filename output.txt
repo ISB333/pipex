@@ -1,0 +1,13 @@
+0_obj
+cat
+fr.subject.pdf
+libft
+Makefile
+output.txt
+pipex
+pipex.c
+pipex.h
+test
+trace.txt
+utils2.c
+utils.c
