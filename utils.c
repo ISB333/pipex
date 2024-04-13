@@ -6,7 +6,7 @@
 /*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:41:35 by isb3              #+#    #+#             */
-/*   Updated: 2024/04/13 13:26:27 by adesille         ###   ########.fr       */
+/*   Updated: 2024/04/13 16:37:31 by adesille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,13 @@ int	ff(t_data *d, int err, char *msg)
 	}
 	if (d->cmd_paths)
 		free_memory(d->cmd_paths);
-	if (d->infile)
-		close(d->infile);
-	if (d->outfile)
-		close(d->outfile);
+	close(d->infile);
+	close(d->outfile);
 	if (d->args)
 	{
 		while (d->args[i])
 			i++;
-		while (i-- > 0)
+		while (i-- > 0 && d->args[i])
 			free_memory(d->args[i]);
 		return (free(d->args), free(d), errno);
 	}

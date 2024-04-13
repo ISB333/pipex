@@ -6,7 +6,7 @@
 /*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 11:23:30 by isb3              #+#    #+#             */
-/*   Updated: 2024/04/13 15:45:14 by adesille         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:47:02 by adesille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	warlord_executor(t_data *d, char *env[])
 		if (child(d) == -1)
 			return (ff(d, 0, NULL), errno);
 		if (execve(d->cmd_paths[d->it], d->args[d->it], env))
-			close(d->pipe_fd[1]);
+			return (close(d->pipe_fd[1]), perror("execve"), 1);
 	}
 	else if (pid > 0)
 	{
