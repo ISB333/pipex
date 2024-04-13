@@ -6,11 +6,12 @@
 /*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 11:23:30 by isb3              #+#    #+#             */
-/*   Updated: 2024/04/13 09:20:13 by adesille         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:33:07 by adesille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <signal.h>
 
 int	child(t_data *d)
 {
@@ -32,10 +33,9 @@ int	child(t_data *d)
 
 int	warlord_executor(t_data *d, char *env[])
 {
-	int		status;
 	pid_t	pid;
 
-	d->it++;
+	// d->it++;
 	if (pipe(d->pipe_fd) == -1)
 		return (write(2, strerror(errno), ft_strlen(strerror(errno))), errno);
 	pid = fork();
@@ -45,15 +45,16 @@ int	warlord_executor(t_data *d, char *env[])
 	{
 		if (child(d) == -1)
 			return (ff(d, 0, NULL), errno);
-		execve(d->cmd_paths[d->it], d->args[d->it], env);
+		if (execve(d->cmd_paths[d->it], d->args[d->it], env))
+			close(d->pipe_fd[1]);
 	}
 	else if (pid > 0)
 	{
-		waitpid(pid, &status, 0);
-		if (close(d->pipe_fd[1]) || dup2(d->pipe_fd[0], STDIN_FILENO) == -1
+		waitpid(pid, NULL, 0);
+		if (close(d->pipe_fd[1]), dup2(d->pipe_fd[0], STDIN_FILENO) == -1
 			|| close(d->pipe_fd[0]))
 			return (-1);
-		if (d->it < d->count - 1)
+		if (d->it++ < d->count - 1)
 			warlord_executor(d, env);
 	}
 	return (0);

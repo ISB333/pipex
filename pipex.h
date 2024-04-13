@@ -6,7 +6,7 @@
 /*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 15:26:28 by adesille          #+#    #+#             */
-/*   Updated: 2024/04/13 10:00:18 by adesille         ###   ########.fr       */
+/*   Updated: 2024/04/13 12:44:56 by adesille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_data
 	char	***args;
 	char	**cmd_paths;
 	char	**files;
+	pid_t	pid;
 	int		count;
 	int		it;
 	int		pipe_fd[2];

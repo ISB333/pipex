@@ -6,7 +6,7 @@
 /*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:41:35 by isb3              #+#    #+#             */
-/*   Updated: 2024/04/13 10:17:01 by adesille         ###   ########.fr       */
+/*   Updated: 2024/04/13 13:26:27 by adesille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int	initializer(t_data *d, char	*argv[], char *env[])
 		return (ff(d, 0, "files parsing\n"), -1);
 	while (d->args[i])
 		i++;
-	d->it = -1;
+	d->it = 0;
 	d->count = i;
 	d->temp = -1;
 	return (0);
