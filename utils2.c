@@ -6,7 +6,7 @@
 /*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 09:44:32 by adesille          #+#    #+#             */
-/*   Updated: 2024/04/12 14:17:40 by adesille         ###   ########.fr       */
+/*   Updated: 2024/04/13 10:04:16 by adesille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*path_finder(char *cmd, char *env[])
 			return (free(cmd), free_memory(path), test_path);
 		free(test_path);
 	}
-	return (free(cmd), free_memory(path), ft_substr("lol", 0, 3));
+	return (free(cmd), free_memory(path), ft_substr("notexisting", 0, 3));
 }
 
 char	**get_cmd_path(char *argv[], char *env[])

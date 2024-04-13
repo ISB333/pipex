@@ -6,7 +6,7 @@
 /*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 11:23:30 by isb3              #+#    #+#             */
-/*   Updated: 2024/04/11 14:25:14 by adesille         ###   ########.fr       */
+/*   Updated: 2024/04/13 09:20:13 by adesille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	warlord_executor(t_data *d, char *env[])
 	pid = fork();
 	if (pid == -1)
 		return (errno);
-		// return (ff(d, errno, NULL), errno);
 	if (pid == 0)
 	{
 		if (child(d) == -1)
@@ -52,7 +51,7 @@ int	warlord_executor(t_data *d, char *env[])
 	{
 		waitpid(pid, &status, 0);
 		if (close(d->pipe_fd[1]) || dup2(d->pipe_fd[0], STDIN_FILENO) == -1
-				|| close(d->pipe_fd[0]))
+			|| close(d->pipe_fd[0]))
 			return (-1);
 		if (d->it < d->count - 1)
 			warlord_executor(d, env);

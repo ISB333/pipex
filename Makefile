@@ -20,7 +20,7 @@ CC = cc
 
 SRCS = pipex.c utils.c utils2.c
 OBJDIR = 0_obj
-OBJS = ${SRCS:%.c=${OBJDIR}/%.o}
+OBJS = $(SRCS:%.c=$(OBJDIR)/%.o)
 
 GREEN = \033[0;92m
 CURRENT_DATE	:= $(shell date +"%Y-%m-%d %H:%M:%S")
@@ -32,25 +32,25 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 ######################## RULES ########################
 
-all: ${NAME}
+all: $(NAME)
 
-${NAME}: ${OBJS} ${LIBFT}
-	@${CC} ${CFLAGS} ${OBJS} ${LIBFT} -o ${NAME}
+$(NAME): $(OBJS) $(LIBFT)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
-${OBJDIR}/%.o: %.c
-	@mkdir -p ${@D}
+$(OBJDIR)/%.o: %.c
+	@mkdir -p $(@D)
 	@echo "Compiling $<..."
-	@${CC} ${CFLAGS} -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-${LIBFT}:
+$(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
 
 clean:
-	rm -rf ${OBJDIR} ${NAME}
+	rm -rf $(OBJDIR)
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
 fclean: clean
-	rm -f ${NAME}
+	rm -f $(NAME)
 
 re: fclean all
 

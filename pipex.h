@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isb3 <isb3@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 15:26:28 by adesille          #+#    #+#             */
-/*   Updated: 2024/04/09 10:35:03 by isb3             ###   ########.fr       */
+/*   Updated: 2024/04/13 10:00:18 by adesille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_data
 int		format_check(char *argv[]);
 int		ff(t_data *d, int err, char *msg);
 void	free_memory(char **array);
-char	***parse_cmds(char *argv[], char *cmd, int i, int k);
 int		parse_files(char *argv[], t_data *d);
 
 void	printer(t_data *d);
