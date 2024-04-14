@@ -3,17 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adesille <adesille@student.42.fr>          +#+  +:+       +#+         #
+#    By: isb3 <isb3@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 10:16:45 by adesille          #+#    #+#              #
-#    Updated: 2024/04/13 11:43:01 by adesille         ###   ########.fr        #
+#    Updated: 2024/04/14 15:15:16 by isb3             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ######################## ARGUMENTS ########################
 
 NAME = pipex
-CFLAGS += -Wall -Wextra -Werror
+DEPFLAGS = -MP -MD
+CFLAGS += -Wall -Wextra -Werror $(DEPFLAGS)
 CC = cc
 
 ######################## SOURCES ########################
@@ -23,7 +24,7 @@ OBJDIR = 0_obj
 OBJS = $(SRCS:%.c=$(OBJDIR)/%.o)
 
 GREEN = \033[0;92m
-CURRENT_DATE	:= $(shell date +"%Y-%m-%d %H:%M:%S")
+CURRENT_DATE	:= $(shell date +"%Y-%m-%d %H:%M")
 
 ######################## LIBRARY ########################
 
@@ -34,16 +35,18 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT)
+$(NAME): $(OBJS) $(LIBFT) # Here we're saying that in order to build this binary, we need to create all of this
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
+# Regular expression where % is a wildcard (Char(s) used to match multiple chars in a str)
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(@D)
 	@echo "Compiling $<..."
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@ 
+# $@ is the Target ($(OBJDIR)/%.o)
 
-$(LIBFT):
-	@$(MAKE) -C $(LIBFT_DIR)
+$(LIBFT): # Call the MAKE inside the LIBFT Directory
+	@$(MAKE) -C $(LIBFT_DIR) 
 
 clean:
 	rm -rf $(OBJDIR)
