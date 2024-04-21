@@ -6,7 +6,7 @@
 #    By: isb3 <isb3@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/20 09:53:02 by adesille          #+#    #+#              #
-#    Updated: 2024/04/21 10:57:40 by isb3             ###   ########.fr        #
+#    Updated: 2024/04/21 11:00:52 by isb3             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ $(OBJDIR)/%.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(RM) -rf $(OBJDIR) $(NAME)
+	$(RM) -rf $(OBJDIR)
 
 fclean: clean
 	$(RM) $(NAME)
