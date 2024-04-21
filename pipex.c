@@ -6,7 +6,7 @@
 /*   By: isb3 <isb3@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 11:23:30 by isb3              #+#    #+#             */
-/*   Updated: 2024/04/14 13:44:13 by isb3             ###   ########.fr       */
+/*   Updated: 2024/04/21 10:45:52 by isb3             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	warlord_executor(t_data *d, char *env[])
 	}
 	return (0);
 }
+
+// LIBFT MAKEFILE DON'T COMPILE ANYMORE BONUS
 
 int	main(int argc, char *argv[], char *env[])
 {
