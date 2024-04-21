@@ -6,7 +6,7 @@
 /*   By: isb3 <isb3@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 15:26:28 by adesille          #+#    #+#             */
-/*   Updated: 2024/04/14 14:38:09 by isb3             ###   ########.fr       */
+/*   Updated: 2024/04/21 10:48:46 by isb3             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		parse_files(char *argv[], t_data *d);
 void	printer(t_data *d);
 char	**get_cmd_path(char *argv[], char *env[]);
 char	**extract_path(char *env[]);
-int		initializer(t_data *d, char	*argv[], char *env[], int i);
+int		initializer(t_data *d, char	*argv[], char *env[]);
 
 int		pipex(char *argv[], char *env[]);
 

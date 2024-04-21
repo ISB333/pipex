@@ -6,7 +6,7 @@
 #    By: isb3 <isb3@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 10:16:45 by adesille          #+#    #+#              #
-#    Updated: 2024/04/14 15:17:43 by isb3             ###   ########.fr        #
+#    Updated: 2024/04/21 10:51:17 by isb3             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,5 +62,7 @@ git:
 	@git commit -m "$(CURRENT_DATE)" > /dev/null 2>&1
 	@git push > /dev/null 2>&1
 	@echo "$(GREEN)┌(メ▼▼)┘ GIT UPDATE └(▼▼メ)┐ $(DEF_COLOR)"
+
+-include $(DEPFILES)
 
 .PHONY: all clean fclean re git

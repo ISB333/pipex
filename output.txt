@@ -1,1 +1,10 @@
-1
+0_obj
+Makefile
+libft
+lorem.txt
+output.txt
+pipex
+pipex.c
+pipex.h
+utils.c
+utils2.c
