@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isb3 <isb3@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: adesille <adesille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 11:23:30 by isb3              #+#    #+#             */
-/*   Updated: 2024/04/21 10:45:52 by isb3             ###   ########.fr       */
+/*   Updated: 2024/05/14 10:01:52 by adesille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	warlord_executor(t_data *d, char *env[])
 	}
 	else if (pid > 0)
 	{
-		waitpid(pid, NULL, 0);
+		if (d->it == d->count - 2)
+			waitpid(pid, NULL, 0);
 		if (close(d->pipe_fd[1]), dup2(d->pipe_fd[0], STDIN_FILENO) == -1
 			|| close(d->pipe_fd[0]))
 			return (-1);
